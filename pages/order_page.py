@@ -7,14 +7,14 @@ from pages.base_page import BasePage
 
 class OrderPage(BasePage):
     @allure.step('Заполняем поля с персональной информацией по заказу.')
-    def fill_personal_info_for_order(self, contact_information, metro_station):
+    def fill_personal_info_for_order(self, name, surname, address, metro_station, phone):
         self.agree_to_cookies()
         self.click_on_element(OrderPageLocators.ORDER_BUTTON_UP)
-        self.insert_text_in_field(OrderPageLocators.NAME_FIELD, contact_information[0])
-        self.insert_text_in_field(OrderPageLocators.SURNAME_FIELD, contact_information[1])
-        self.insert_text_in_field(OrderPageLocators.ADDRESS_FIELD, contact_information[2])
+        self.insert_text_in_field(OrderPageLocators.NAME_FIELD, name)
+        self.insert_text_in_field(OrderPageLocators.SURNAME_FIELD, surname)
+        self.insert_text_in_field(OrderPageLocators.ADDRESS_FIELD, address)
         self.choose_metro_station(metro_station)
-        self.insert_text_in_field(OrderPageLocators.PHONE_NUMBER_FIELD, contact_information[3])
+        self.insert_text_in_field(OrderPageLocators.PHONE_NUMBER_FIELD, phone)
         self.click_on_element(OrderPageLocators.NEXT_BUTTON)
 
     @allure.step('Заполняем поля с дополнительной информацией по заказу.')
@@ -69,4 +69,3 @@ class OrderPage(BasePage):
         self.click_on_element(OrderPageLocators.SCOOTER_LOGO)
         url = self.check_url_after_redirect(Constants.URL)
         return url
-

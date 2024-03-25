@@ -3,25 +3,25 @@ import pytest
 
 from constants import Constants
 from pages.order_page import OrderPage
-
+from data import Data
 
 class TestOrderPage:
 
     @pytest.mark.parametrize(
-        'metro_station, rental_period',
+        'name, surname, address, metro_station, phone, rental_period',
         [
-            (Constants.METRO_STATION_1, Constants.RENTAL_PERIOD_1),
-            (Constants.METRO_STATION_2, Constants.RENTAL_PERIOD_2),
-            (Constants.METRO_STATION_3, Constants.RENTAL_PERIOD_3)
+            (Data.name, Data.surname, Data.address, Constants.METRO_STATION_1, Data.number, Constants.RENTAL_PERIOD_1),
+            (Data.name, Data.surname, Data.address, Constants.METRO_STATION_2, Data.number, Constants.RENTAL_PERIOD_2),
+            (Data.name, Data.surname, Data.address, Constants.METRO_STATION_3, Data.number, Constants.RENTAL_PERIOD_3)
         ]
     )
     @allure.title('Проверка формы создания заказа.')
     @allure.description(
         'Переходим на страницу заказа, заполняем необходимые поля и подтверждаем заказ. Проверяем, что появилось сообщение "Заказ оформлен".')
-    def test_fill_personal_info_for_order(self, driver, contact_information, metro_station, today_date, rental_period):
+    def test_fill_personal_info_for_order(self, driver, name, surname, address, metro_station, phone, rental_period):
         order_page = OrderPage(driver)
-        order_page.fill_personal_info_for_order(contact_information, metro_station)
-        order_page.fill_additional_order_info(today_date, rental_period)
+        order_page.fill_personal_info_for_order(name, surname, address, metro_station, phone)
+        order_page.fill_additional_order_info(Data.date, rental_period)
         assert 'Заказ оформлен' in order_page.check_successful_order()
 
     @allure.title('Проверка перехода на Дзен.')

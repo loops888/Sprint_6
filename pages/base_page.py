@@ -1,7 +1,8 @@
 import allure
-from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
+
+from locators.main_page_locators import MainPageLocators
 
 
 class BasePage:
@@ -42,8 +43,7 @@ class BasePage:
 
     @allure.step('Принимаем куки.')
     def agree_to_cookies(self):
-        cookies = (By.ID, 'rcc-confirm-button')
-        element = WebDriverWait(self.driver, 5).until(expected_conditions.element_to_be_clickable(cookies))
+        element = WebDriverWait(self.driver, 5).until(expected_conditions.element_to_be_clickable(MainPageLocators.COOKIES))
         element.click()
 
     @allure.step('Проверяем url после редиректа.')
